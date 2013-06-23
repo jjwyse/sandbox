@@ -1,19 +1,19 @@
-<project name="com.jjw.sandbox build file" basedir="." default="all">
+<project name="sandbox build file" basedir="." default="all">
    <description>
-      This is the build file for the com.jjw.sandbox sub-component.
+      This is the build file for the sandbox sub-component.
    </description>
    <property environment="env" />
 
    <!-- Specify the cpc name -->
-   <property name="component" value="com.jjw.sandbox" />
+   <property name="component" value="sandbox" />
    <echo message="${component}" />
 
    <!-- Grab user's personal properties -->
    <property file="build.${env.USER}.properties" />
 
    <!-- Setup common properties -->
-   <property name="jjw.dir" value="${env.JJW_DIR}" />
-   <property name="common.dir" value="${jjw.dir}/common" />
+   <property name="workspace.dir" value="${env.WORKSPACE_HOME}" />
+   <property name="common.dir" value="${workspace.dir}/common" />
    <property file="${common.dir}/common-build.properties" />
    <property file="build.properties" />
 
@@ -42,8 +42,8 @@
 
    <!-- Define all of the files you want to end up in deploy/${component}/lib -->
    <path id="libtodeploy">
-      <pathelement path="${jjw.core.jar}" />
-      <pathelement path="${jjw.sandbox.jar}" />
+      <pathelement path="${core.jar}" />
+      <pathelement path="${sandbox.jar}" />
       <pathelement path="${log4j.jar}" />
       <pathelement path="${spring.aop.jar}" />
       <pathelement path="${spring.beans.jar}" />
