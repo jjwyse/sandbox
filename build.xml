@@ -42,8 +42,8 @@
 
    <!-- Define all of the files you want to end up in deploy/${component}/lib -->
    <path id="libtodeploy">
-      <pathelement path="${core.jar}" />
-      <pathelement path="${sandbox.jar}" />
+      <pathelement path="${jjw.core.jar}" />
+      <pathelement path="${jjw.sandbox.jar}" />
       <pathelement path="${log4j.jar}" />
       <pathelement path="${spring.aop.jar}" />
       <pathelement path="${spring.beans.jar}" />
