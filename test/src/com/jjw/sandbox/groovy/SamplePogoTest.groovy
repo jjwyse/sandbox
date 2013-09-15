@@ -1,11 +1,8 @@
 package com.jjw.sandbox.groovy;
 
-import static org.junit.Assert.*
-import junit.framework.TestCase
-
-class SamplePogoTest extends TestCase
+class SamplePogoTest extends GroovyTestCase
 {
-    void samplePojoTest()
+    void test()
     {
         SamplePogo sample = new SamplePogo(name:"Josh", address:"121 Main St");
         sample.setAddress("Address 1");
