@@ -12,8 +12,8 @@ import com.jjw.sandbox.dao.rowmapper.UserRowMapper;
 import com.jjw.sandbox.pojo.User;
 
 /**
- * Implementation of the UserJdbcDao that insert and retrieves information from
- * our TestTable table in the test database.
+ * Implementation of the UserJdbcDao that insert and retrieves information from our TestTable table in the test
+ * database.
  */
 public class UserJdbcDaoImpl implements UserJdbcDao
 {
