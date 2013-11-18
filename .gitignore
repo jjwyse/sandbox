@@ -1,3 +1,4 @@
 /.eclipsescratch
 dist/*.jar
 dist/*.war
+*.iml
