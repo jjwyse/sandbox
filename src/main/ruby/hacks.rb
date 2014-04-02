@@ -8,3 +8,10 @@ def block_test
 end
 
 block_test { puts ">>> We're in the block!" }
+
+def lambda_demo(a_lambda)
+   puts "I'm the method!"
+   a_lambda.call
+end
+
+lambda_demo(lambda { puts "I'm the lambda!" })
