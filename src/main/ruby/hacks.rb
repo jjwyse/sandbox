@@ -2,7 +2,7 @@
 # example of yielding to passed in method
 def block_test
    puts "We're in the method!"
-   puts "Yielding to the block..."
+   puts 'Yielding to the block...'
    yield
    puts "We're back in the method!"
 end

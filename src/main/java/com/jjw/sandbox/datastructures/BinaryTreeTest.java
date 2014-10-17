@@ -1,28 +1,23 @@
 package com.jjw.sandbox.datastructures;
 
-public class BinaryTreeTest
-{
-    public static void main(String[] args)
-    {
+public class BinaryTreeTest {
+    public static void main(String[] args) {
         new BinaryTreeTest().run();
     }
 
-    static class Node
-    {
+    static class Node {
         Node left;
 
         Node right;
 
         int value;
 
-        public Node(int value)
-        {
+        public Node(int value) {
             this.value = value;
         }
     }
 
-    public void run()
-    {
+    public void run() {
         // build the simple tree from chapter 11.
         Node root = new Node(5);
         // System.out.println("Binary Tree Example");
@@ -42,23 +37,19 @@ public class BinaryTreeTest
         System.out.println(findMax(root));
     }
 
-    private int findMax(Node node)
-    {
+    private int findMax(Node node) {
         int left = Integer.MIN_VALUE;
         int right = Integer.MIN_VALUE;
 
-        if (node.left == null && node.right == null)
-        {
+        if (node.left == null && node.right == null) {
             System.out.println("Returning value: " + node.value);
             return node.value;
         }
-        if (node.left != null)
-        {
+        if (node.left != null) {
             System.out.println("findMax left " + node.left.value);
             left = findMax(node.left);
         }
-        if (node.right != null)
-        {
+        if (node.right != null) {
             System.out.println("findMax right " + node.right.value);
             right = findMax(node.right);
         }
@@ -69,38 +60,26 @@ public class BinaryTreeTest
         return Math.max(childrenMax, node.value);
     }
 
-    public void insert(Node node, int value)
-    {
-        if (value < node.value)
-        {
-            if (node.left != null)
-            {
+    public void insert(Node node, int value) {
+        if (value < node.value) {
+            if (node.left != null) {
                 insert(node.left, value);
-            }
-            else
-            {
+            } else {
                 System.out.println("  Inserted " + value + " to left of " + node.value);
                 node.left = new Node(value);
             }
-        }
-        else if (value > node.value)
-        {
-            if (node.right != null)
-            {
+        } else if (value > node.value) {
+            if (node.right != null) {
                 insert(node.right, value);
-            }
-            else
-            {
+            } else {
                 System.out.println("  Inserted " + value + " to right of " + node.value);
                 node.right = new Node(value);
             }
         }
     }
 
-    public void printInOrder(Node node)
-    {
-        if (node != null)
-        {
+    public void printInOrder(Node node) {
+        if (node != null) {
             printInOrder(node.left);
             System.out.println("  Traversed " + node.value);
             printInOrder(node.right);
@@ -109,33 +88,25 @@ public class BinaryTreeTest
 
     /**
      * uses in-order traversal when the origin is less than the node's value
-     * 
+     *
      * uses reverse-order traversal when the origin is greater than the node's order
      */
-    public void printFrontToBack(Node node, int camera)
-    {
-        if (node == null)
-            return;
-        if (node.value > camera)
-        {
+    public void printFrontToBack(Node node, int camera) {
+        if (node == null) { return; }
+        if (node.value > camera) {
             // print in order
             printFrontToBack(node.left, camera);
             System.out.println("  Traversed " + node.value);
             printFrontToBack(node.right, camera);
-        }
-        else if (node.value < camera)
-        {
+        } else if (node.value < camera) {
             // print reverse order
             printFrontToBack(node.right, camera);
             System.out.println("  Traversed " + node.value);
             printFrontToBack(node.left, camera);
-        }
-        else
-        {
+        } else {
             // order doesn't matter
             printFrontToBack(node.left, camera);
             printFrontToBack(node.right, camera);
         }
     }
-
 }
