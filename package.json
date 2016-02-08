@@ -1,0 +1,27 @@
+{
+  "name": "sandbox",
+  "version": "1.0.0",
+  "description": "sandbox ============",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jjwyse/sandbox.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jjwyse/sandbox/issues"
+  },
+  "homepage": "https://github.com/jjwyse/sandbox",
+  "dependencies": {
+    "nodegit": "^0.8.0",
+    "octokat": "^0.4.16",
+    "octonode": "^0.7.4"
+  },
+  "devDependencies": {
+    "json-schema-generator": "^2.0.3"
+  }
+}
