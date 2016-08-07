@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Redux server",
   "scripts": {
+    "start": "babel-node index.js",
     "test": "mocha --compilers js:babel-core/register --recursive --require test/helper.js",
     "test:watch": "npm run test -- --watch"
   },
@@ -23,6 +24,8 @@
   },
   "dependencies": {
     "chai-immutable": "^1.6.0",
-    "immutable": "^3.8.1"
+    "immutable": "^3.8.1",
+    "redux": "^3.5.2",
+    "socket.io": "^1.4.8"
   }
 }
