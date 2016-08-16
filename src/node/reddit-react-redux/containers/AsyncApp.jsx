@@ -44,7 +44,7 @@ class AsyncApp extends Component {
           {lastUpdated && <span>
             Last updated at {new Date(lastUpdated).toLocaleTimeString()}. {' '}
           </span>
-}
+          }
           {!isFetching && <a href='#' onClick={this.handleRefreshClick}>
             Refresh
           </a>}
@@ -53,8 +53,8 @@ class AsyncApp extends Component {
         {!isFetching && posts.length === 0 && <h2>Empty.</h2>}
         {posts.length > 0 && <div style={{
           opacity: isFetching
-            ? 0.5
-            : 1
+          ? 0.5
+          : 1
         }}>
           <Posts posts={posts}/>
         </div>}
