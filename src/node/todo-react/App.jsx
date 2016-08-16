@@ -9,7 +9,8 @@ const todos = (state = [], action) => {
       console.log('Adding todo...');
       return [
         ...state, {
-          text: action.text
+          text: action.text,
+          id: action.id
         }
       ]
   }
@@ -18,18 +19,35 @@ const todos = (state = [], action) => {
 
 const store = createStore(combineReducers({todos}));
 
+const AddTodo = ({onAddClick}) => {
+  return (
+    <button onClick={onAddClick}>Add TODO</button>
+  )
+};
+
+const Todo = ({text}) => {
+  return (
+    <li>
+      {text}
+    </li>
+  )
+};
+
+const TodoList = ({todos}) => {
+  return (
+    <ul>
+      {todos.map(todo => <Todo key={todo.id} {...todo}></Todo>)}
+    </ul>
+  )
+};
+
+let nextId = 0;
 class App extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={(e) => {
-          store.dispatch({type: 'ADD_TODO', text: 'New Todo'});
-        }}>Add TODO</button>
-        <ul>
-          {this.props.todos
-            ? this.props.todos.map(todo => <li>{todo.text}</li>)
-          : 'No todos'}
-        </ul>
+        <AddTodo onAddClick= {(e) => store.dispatch({ type: 'ADD_TODO', text: 'New Todo', id: nextId++ })}/>
+        <TodoList {...this.props}/>
       </div>
     )
   }
@@ -41,7 +59,7 @@ App.proptypes = {
 
 const render = () => {
   ReactDOM.render(
-    <App todos={store.getState().todos}/>, document.getElementById('app'))
+    <App {...store.getState()}/>, document.getElementById('app'))
 };
 
 store.subscribe(render)
