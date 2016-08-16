@@ -1,47 +1,29 @@
 {
-  "ecmaFeatures": {
-    "arrowFunctions": true,
-    "binaryLiterals": false,
-    "blockBindings": true,
-    "classes": true,
-    "defaultParams": true,
-    "destructuring": true,
-    "forOf": true,
-    "generators": true,
-    "modules": false,
-    "objectLiteralComputedProperties": true,
-    "objectLiteralDuplicateProperties": false,
-    "objectLiteralShorthandMethods": true,
-    "objectLiteralShorthandProperties": true,
-    "octalLiterals": false,
-    "regexUFlag": false,
-    "regexYFlag": false,
-    "restParams": true,
-    "spread": true,
-    "superInFunctions": true,
-    "templateStrings": true,
-    "unicodePointEscapes": true,
-    "globalReturn": false,
-    "jsx": true
-  },
+  /*"extends": "eslint-config-airbnb",*/
+  "parser": "babel-eslint",
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "es6": true,
+    "mocha": true
   },
-  "globals": {
-    "React": true
+  "ecmaFeatures": {
+    "jsx": true,
+    "modules": true
   },
-  "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true,
-    }
+  "rules": {
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "react/react-in-jsx-scope": 2,
+    "padded-blocks": 0,
+    "block-scoped-var": 0,
+    "comma-dangle": 0,
+    "object-curly-spacing": ["error", "never", {
+      "objectsInObjects": true,
+      "arraysInObjects": true
+    }]
   },
-  "parser": "babel-eslint",
   "plugins": [
-    "babel",
     "react"
-  ],
-  "react/no-unknown-property": 1
+  ]
 }
