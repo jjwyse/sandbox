@@ -19,10 +19,18 @@ const todos = (state = [], action) => {
 
 const store = createStore(combineReducers({todos}));
 
-const AddTodo = ({onAddClick}) => {
-  return (
-    <button onClick={onAddClick}>Add TODO</button>
-  )
+class AddTodo extends React.Component {
+  render() {
+    const onAddClick = (e) => store.dispatch({
+      type: 'ADD_TODO',
+      text: 'New Todo',
+      id: nextId++
+    });
+
+    return (
+      <button onClick={onAddClick}>Add TODO</button>
+    )
+  }
 };
 
 const Todo = ({text}) => {
@@ -33,34 +41,33 @@ const Todo = ({text}) => {
   )
 };
 
-const TodoList = ({todos}) => {
-  return (
-    <ul>
-      {todos.map(todo => <Todo key={todo.id} {...todo}></Todo>)}
-    </ul>
-  )
+class TodoList extends React.Component {
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(() => this.forceUpdate());
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  render() {
+    const state = store.getState();
+
+    return (
+      <ul>
+        {state.todos.map(todo => <Todo key={todo.id} {...todo}></Todo>)}
+      </ul>
+    )
+  }
 };
 
 let nextId = 0;
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <AddTodo onAddClick= {(e) => store.dispatch({ type: 'ADD_TODO', text: 'New Todo', id: nextId++ })}/>
-        <TodoList {...this.props}/>
-      </div>
-    )
-  }
-}
+const TodoApp = () => (
+  <div>
+    <AddTodo/>
+    <TodoList/>
+  </div>
+);
 
-App.proptypes = {
-  todos: React.PropTypes.array
-}
-
-const render = () => {
-  ReactDOM.render(
-    <App {...store.getState()}/>, document.getElementById('app'))
-};
-
-store.subscribe(render)
-render();
+ReactDOM.render(
+  <TodoApp/>, document.getElementById('app'))
