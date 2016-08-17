@@ -1,18 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {createStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import {Provider, connect} from 'react-redux';
 import reducers from './reducers';
-
-let nextId = 0;
-// action creators
-const addTodo = (text) => ({
-  type: 'ADD_TODO',
-  id: nextId++,
-  text: text
-});
-const setVisibilityFilter = (filter) => ({type: 'SET_VISIBILITY_FILTER', filter: filter});
-const toggleTodo = (id) => ({type: 'TOGGLE_TODO', id});
+import {addTodo, setVisibilityFilter, toggleTodo, shuffleDeckIfNeeded} from './actions';
+import ReduxThunk from 'redux-thunk';
 
 let AddTodo = ({dispatch}) => {
   let input;
@@ -114,15 +106,57 @@ const mapDispatchToTodoListProps = (dispatch) => ({
 
 const VisibleTodoList = connect(mapStateToTodoListProps, mapDispatchToTodoListProps)(TodoList);
 
+/** Playing around with redux-promise*/
+class Async extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    const {dispatch} = this.props;
+    dispatch(shuffleDeckIfNeeded('josh'));
+  }
+
+  render() {
+    const {shuffling, deckName, metadata} = this.props;
+    return (
+      <div>
+        <h1>Deck Fun</h1>
+        <p>Deck name: {deckName}</p>
+        <p>Metadata: {JSON.stringify(metadata)} </p>
+        {shuffling
+          ? <p>Loading...</p>
+            : <p>Shuffled</p>}
+      </div>
+    );
+  }
+}
+Async.propTypes = {
+  shuffling: React.PropTypes.bool.isRequired,
+  deckName: React.PropTypes.string.isRequired,
+  metadata: React.PropTypes.object.isRequired,
+  dispatch: React.PropTypes.func.isRequired
+};
+
+const mapStateToApiDataProps = (state) => {
+  console.log(`Mapping state to props: ${JSON.stringify(state)}`);
+  const {shuffling, deckName, metadata} = state.deck;
+  return {shuffling, deckName, metadata};
+};
+
+const AsyncComponent = connect(mapStateToApiDataProps)(Async);
+
 const TodoApp = () => (
   <div>
     <AddTodo/>
     <VisibleTodoList/>
     <Footer/>
+    <AsyncComponent/>
   </div>
 );
 
+const createStorewithMiddleware = applyMiddleware(ReduxThunk)(createStore);
 ReactDOM.render(
-  <Provider store={createStore(reducers)}>
+  <Provider store={createStorewithMiddleware(reducers)}>
   <TodoApp/>
 </Provider>, document.getElementById('app'));

@@ -51,4 +51,18 @@ const visibilityReducer = (state = 'SHOW_ALL', action) => {
   }
 };
 
-export default combineReducers({ todos: todosReducer, visibility: visibilityReducer });
+const deckReducer = (state = { deckName: 'none', shuffling: false, metadata: {} }, action) => {
+  switch (action.type) {
+    case 'SHUFFLING':
+      console.log(`shuffling the deck: ${JSON.stringify(action)}`);
+      return Object.assign({}, state, action);
+    case 'FINISHED_SHUFFLING':
+      console.log(`finished shuffling the deck: ${JSON.stringify(action)}`);
+      return Object.assign({}, state, action);
+    default:
+      console.log('hit default return state in deckReducer');
+      return state;
+  }
+};
+
+export default combineReducers({ todos: todosReducer, visibility: visibilityReducer, deck: deckReducer });

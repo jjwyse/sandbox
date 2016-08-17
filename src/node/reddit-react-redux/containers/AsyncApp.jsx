@@ -77,7 +77,6 @@ const mapStateToProps = (state) => {
     isFetching: true,
     items: []
   }
-
   return {selectedSubreddit, posts, isFetching, lastUpdated}
 }
 
