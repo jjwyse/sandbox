@@ -1,5 +1,4 @@
-'use strict';
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 
 const todo = (state, action) => {
   switch (action.type) {
@@ -30,8 +29,8 @@ const todosReducer = (state = [], action) => {
       console.log('adding todo');
       return [
         ...state,
-        todo(undefined, action)
-      ]
+        todo(null, action)
+      ];
     case 'TOGGLE_TODO':
       console.log(`toggling todo for ${JSON.stringify(action)}`);
       return state.map(t => todo(t, action));
@@ -39,7 +38,7 @@ const todosReducer = (state = [], action) => {
       console.log('hit default return state in todosReducer');
       return state;
   }
-}
+};
 
 const visibilityReducer = (state = 'SHOW_ALL', action) => {
   switch (action.type) {
@@ -50,6 +49,6 @@ const visibilityReducer = (state = 'SHOW_ALL', action) => {
       console.log('hit default return state in visibilityReducer');
       return state;
   }
-}
+};
 
 export default combineReducers({ todos: todosReducer, visibility: visibilityReducer });
