@@ -6,7 +6,11 @@ import reducers from './reducers';
 
 let nextId = 0;
 // action creators
-const addTodo = (text) => ({ type: 'ADD_TODO', id: nextId++, text: text });
+const addTodo = (text) => ({
+  type: 'ADD_TODO',
+  id: nextId++,
+  text: text
+});
 const setVisibilityFilter = (filter) => ({type: 'SET_VISIBILITY_FILTER', filter: filter});
 const toggleTodo = (id) => ({type: 'TOGGLE_TODO', id});
 
@@ -29,23 +33,23 @@ let AddTodo = ({dispatch}) => {
 AddTodo = connect()(AddTodo); // default behavior, is not subscribe to store and inject just "dispatch" function as prop
 
 const Link = ({active, children, onClick}) => {
-  if (active) {
-    return <span>{children}</span>
-  }
-
-  return (
-    <a href='#' onClick={e => {
-      e.preventDefault();
-      onClick();
-    }}>
-      {children}
-    </a>
-  )
+  return active
+    ? (
+      <span>{children}</span>
+    )
+    : (
+      <a href='#' onClick={e => {
+        e.preventDefault();
+        onClick();
+      }}>
+        {children}
+      </a>
+    )
 };
 
 const mapStateToLinkProps = (state, ownProps) => {
   return {
-    active: ownProps.filter === state.visibilityFilter
+    active: ownProps.filter === state.visibility
   }
 };
 
@@ -66,11 +70,11 @@ const Footer = () => (
       <FilterLink filter='SHOW_ALL'>
         All
       </FilterLink>
-      {''}
+      {', '}
       <FilterLink filter='SHOW_ACTIVE'>
         Active
       </FilterLink>
-      {''}
+      {', '}
       <FilterLink filter='SHOW_COMPLETED'>
         Completed
       </FilterLink>
@@ -81,22 +85,19 @@ const Footer = () => (
 const TodoList = ({todos, onTodoClick}) => {
   return (
     <ul>
-      {todos.map(todo => <li key={todo.id} onClick={onTodoClick}>{todo.text}</li>)}
+      {todos.map(todo => <li
+        key={todo.id}
+        style={{'text-decoration': todo.completed ? 'line-through' : 'none'}}
+        onClick={(e) => onTodoClick(todo.id)}>{todo.text}</li>)}
     </ul>
   );
 };
 
-const mapStateToTodoListProps = (state) => {
-  return {todos: state.todos};
-};
+const mapStateToTodoListProps = (state) => ({todos: state.todos});
 
-const mapDispatchToTodoListProps = (dispatch) => {
-  return {
-    onTodoClick: id => {
-      dispatch(toggleTodo(id));
-    }
-  };
-};
+const mapDispatchToTodoListProps = (dispatch) => ({
+  onTodoClick: id => dispatch(toggleTodo(id))
+});
 
 const VisibleTodoList = connect(mapStateToTodoListProps, mapDispatchToTodoListProps)(TodoList);
 
